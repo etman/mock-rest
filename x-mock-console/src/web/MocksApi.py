@@ -12,12 +12,17 @@ class MockProfile(ndb.Model):
     def all(cls):
         return cls.query().order(-cls.date)
 
+    @classmethod
+    def query_by_space(cls, space):
+        key = ndb.Key("spaces", space)
+        return cls.query(ancestor=key).order(-cls.date)
+
 class MocksApi(webapp2.RequestHandler):
     def post(self):
         logging.debug(self.request.body)
         profile = json.decode(self.request.body)
 
-        parentKey = ndb.Key("accounts", "tim")
+        parentKey = ndb.Key("spaces", "ocm")
 
         mockData = MockProfile.get_by_id(profile["id"], parentKey) if "id" in profile else MockProfile(parent=parentKey)
         mockData.content = profile

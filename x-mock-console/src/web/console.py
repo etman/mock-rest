@@ -7,8 +7,10 @@ Created on May 31, 2014
 import os
 
 import webapp2
+from webapp2_extras import routes
 import jinja2
-import MocksApi
+from MocksApi import MocksApi
+from MockRuntime import MockRuntimeHandler
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -22,14 +24,15 @@ class MainPage(webapp2.RequestHandler):
         #self.response.write('Hello, World!  ')
 
         template_values = {
-            'greetings': "hello"
         }
 
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))
 
-
 application = webapp2.WSGIApplication([
-    ('/', MainPage),
-    ('/api/mocks', MocksApi.MocksApi),
+    routes.DomainRoute('<subdomain>.eco-muse-597.appspot.com', [
+        webapp2.Route('/<mockPath:.*>', handler=MockRuntimeHandler, handler_method="processRequest", name='subdomain-home'),
+    ]),
+    webapp2.Route('/', handler=MainPage, name='home'),
+    webapp2.Route('/api/mocks', handler=MocksApi, name='api'),
 ], debug=True)
