@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-2">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">APIs</div>
@@ -16,40 +16,47 @@
 		</div>
 	</div>
 	<div class="col-md-8">
-		<form role="form">
+		<form role="form" data-ng-enter="save()">
 			<div class="form-group">
 				<label for="inputDisplayName">Display Name</label>
-				<input type="text" id="inputDisplayName" class="form-control" placeholder="name">
+				<input type="text" id="inputDisplayName" class="form-control" placeholder="name" 
+				    data-ng-model="mock.name" data-ng-required="true" data-set-focus>
 			</div>
 			<div class="form-group">
 				<label for="inputPath">Path</label>
 				<div class="input-group">
 					<span class="input-group-addon">http://eco-muse-597.appspot.com/</span>
-					<input type="text" class="form-control" id="inputPath" name="path">
+					<input type="text" class="form-control" id="inputPath" 
+					data-ng-model="mock.path" data-ng-required="true">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputVerb">Verb</label>
 				<div id="verb-radios">
-					<label class="radio-inline"> <input type="radio" name="verb" id="optionsRadios1" value="GET" checked>
-						GET
-					</label> <label class="radio-inline"> <input type="radio" name="verb" id="optionsRadios2" value="POST">
-						POST
-					</label> <label class="radio-inline"> 
-					<input type="radio" name="verb" id="optionsRadios3" value="PUT"> PUT
-					</label> <label class="radio-inline"> <input type="radio" name="verb" id="optionsRadios4" value="PATCH">
-						PATCH
-					</label> <label class="radio-inline"> <input type="radio" name="verb" id="optionsRadios5" value="DELETE">
-						DELETE
-					</label> <label class="radio-inline"> <input type="radio" name="verb" id="optionsRadios6" value="OPTIONS">
-						OPTIONS
+					<label class="radio-inline"> 
+					    <input type="radio" value="GET" data-ng-model="mock.verb" checked> GET
+					</label> 
+					<label class="radio-inline">
+                        <input type="radio" value="POST" data-ng-model="mock.verb"> POST
+					</label> 
+					<label class="radio-inline">
+                        <input type="radio" value="PUT" data-ng-model="mock.verb"> PUT
+					</label>
+                    <label class="radio-inline">
+                        <input type="radio" value="PATCH" data-ng-model="mock.verb"> PATCH
+					</label>
+					<label class="radio-inline">
+					    <input type="radio" value="DELETE" data-ng-model="mock.verb"> DELETE
+					</label>
+					<label class="radio-inline">
+					    <input type="radio" value="OPTIONS" data-ng-model="mock.verb"> OPTIONS
 					</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputHttpResponseStatusCode" class="control-label">Response status</label>
 				<div>
-					<select id="inputHttpResponseStatusCode" class="form-control" name="http_response[http_status]">
+					<select id="inputHttpResponseStatusCode" class="form-control" data-ng-model="mock.response.status">
 						<option value="100">100 - Continue</option>
 						<option value="101">101 - Switching Protocols</option>
 						<option value="102">102 - Processing</option>
@@ -133,18 +140,16 @@
 				<label for="inputHttpResponseContentEncoding" class="control-label">Content-Encoding</label>
 				<div>
 					<input type="text" class="form-control" id="inputHttpResponseContentEncoding"
-						name="http_response[content_encoding]" value="UTF-8" placeholder="UTF-8">
+						 data-ng-model="mock.headers.contentEncoding" value="UTF-8" placeholder="UTF-8">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputHttpResponseBody" class="control-label">Response body</label>
 				<div>
-					<textarea class="form-control" rows="10" id="inputHttpResponseBody" name="http_response[body]">{
-    &quot;msg&quot;:&quot;hello world&quot;
-}</textarea>
+					<textarea class="form-control" rows="10" id="inputHttpResponseBody" data-ng-model="mock.response.body"></textarea>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-default">Save</button>
+			<button type="submit" class="btn btn-default" data-ng-click="save()">Save</button>
 		</form>
 	</div>
 </div>
