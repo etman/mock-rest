@@ -16,9 +16,16 @@ class MocksApi(webapp2.RequestHandler):
     def post(self):
         logging.debug(self.request.body)
         profile = json.decode(self.request.body)
-        mockData = MockProfile(parent=ndb.Key("mockProfiles", profile["displayName"]),
-                               content = profile)
-        mockData.put()
+
+        parentKey = ndb.Key("accounts", "tim")
+
+        mockData = MockProfile.get_by_id(profile["id"], parentKey) if "id" in profile else MockProfile(parent=parentKey)
+        mockData.content = profile
+        newKey = mockData.put()
+        logging.info("Model Key=%s" % newKey)
+
+    def delete(self):
+        ndb.delete_multi([x.key for x in MockProfile.query()])
 
     def get(self):
         self.response.headers['Content-Type'] = 'application/json'
@@ -26,5 +33,6 @@ class MocksApi(webapp2.RequestHandler):
 
     @classmethod
     def wrapResponse(self, profile):
+        profile.content["id"] = profile.key.id()
         profile.content["last-modified"] = profile.date.strftime('%s')
         return profile.content

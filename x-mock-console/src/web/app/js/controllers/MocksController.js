@@ -5,12 +5,12 @@ define([], function() {
 		MockApi.list().$promise.then(function(mockProfiles) {
 			$scope.apiMocks = mockProfiles;
 		});
-		
+
 
 		$scope.mock = {
 			verb : "GET",
 			headers : {
-				contentEncoding : "UTF-8"
+				content_encoding : "UTF-8"
 			},
 			response : {
 				status : "200",

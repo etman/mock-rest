@@ -4,7 +4,7 @@
 			<!-- Default panel contents -->
 			<div class="panel-heading">API Mocks</div>
 			<ul class="list-group" data-ng-repeat="apiMock in apiMocks">
-				<li class="list-group-item" style="cursor: pointer" 
+				<li class="list-group-item" style="cursor: pointer"
 				data-ng-click="open(apiMock)">{{ apiMock.displayName }}</li>
 			</ul>
 		</div>
@@ -13,26 +13,26 @@
 		<form role="form" data-ng-enter="save()">
 			<div class="form-group">
 				<label for="inputDisplayName">Display Name</label>
-				<input type="text" id="inputDisplayName" class="form-control" placeholder="name" 
+				<input type="text" id="inputDisplayName" class="form-control" placeholder="name"
 				    data-ng-model="mock.displayName" data-ng-required="true" data-set-focus>
 			</div>
 			<div class="form-group">
 				<label for="inputPath">Path</label>
 				<div class="input-group">
 					<span class="input-group-addon">http://eco-muse-597.appspot.com/</span>
-					<input type="text" class="form-control" id="inputPath" 
+					<input type="text" class="form-control" id="inputPath"
 					data-ng-model="mock.path" data-ng-required="true">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputVerb">Verb</label>
 				<div id="verb-radios">
-					<label class="radio-inline"> 
+					<label class="radio-inline">
 					    <input type="radio" value="GET" data-ng-model="mock.verb" checked> GET
-					</label> 
+					</label>
 					<label class="radio-inline">
                         <input type="radio" value="POST" data-ng-model="mock.verb"> POST
-					</label> 
+					</label>
 					<label class="radio-inline">
                         <input type="radio" value="PUT" data-ng-model="mock.verb"> PUT
 					</label>
@@ -134,7 +134,7 @@
 				<label for="inputHttpResponseContentEncoding" class="control-label">Content-Encoding</label>
 				<div>
 					<input type="text" class="form-control" id="inputHttpResponseContentEncoding"
-						 data-ng-model="mock.headers.contentEncoding" value="UTF-8" placeholder="UTF-8">
+						 data-ng-model="mock.headers.content_encoding" value="UTF-8" placeholder="UTF-8">
 				</div>
 			</div>
 			<div class="form-group">
