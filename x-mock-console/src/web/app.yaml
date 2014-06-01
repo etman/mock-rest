@@ -12,7 +12,7 @@ libraries:
 
 handlers:
 - url: /app
-  static_dir: /app
+  static_dir: app
 
 - url: /.*
   script: console.application
