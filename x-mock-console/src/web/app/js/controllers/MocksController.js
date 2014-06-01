@@ -1,5 +1,11 @@
 define([], function() {
-	return [ '$scope', '$http', function($scope, $http) {
+	return [ '$scope', '$http', '$log', 'MockApi', function($scope, $http, $log, MockApi) {
+
+		$scope.apiMocks = [];
+		MockApi.list().$promise.then(function(mockProfiles) {
+			$scope.apiMocks = mockProfiles;
+		});
+		
 
 		$scope.mock = {
 			verb : "GET",
@@ -12,8 +18,13 @@ define([], function() {
 			}
 		};
 
+		$scope.open = function(apiMock) {
+			$scope.mock = apiMock;
+		};
+
 		$scope.save = function() {
-			console.log($scope.mock);
+			$log.info($scope.mock);
+			$http.post("/api/mocks", $scope.mock);
 		};
 
 		// because this has happened asynchroneusly we've missed

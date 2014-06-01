@@ -8,7 +8,7 @@ import os
 
 import webapp2
 import jinja2
-from webapp2_extras import json
+import MocksApi
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -28,6 +28,8 @@ class MainPage(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))
 
+
 application = webapp2.WSGIApplication([
     ('/', MainPage),
+    ('/api/mocks', MocksApi.MocksApi),
 ], debug=True)
