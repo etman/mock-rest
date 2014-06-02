@@ -11,5 +11,23 @@ class MockRuntimeHandler(webapp2.RequestHandler):
     def processRequest(self, subdomain, mockPath):
         logging.info("[Incoming URL] %s with subdomain '%s' and mockPath '%s'" % (self.request.path_url, subdomain, mockPath))
         profiles = MockProfile.query_by_space("ocm")
-        for p in profiles:
-            logging.info(p.content)
+        mockProfile = ([x for x in profiles if self.isInMatchWithMock(x, mockPath)][:1] or [None])[0]
+        logging.info("mock mapped=>%s" % mockProfile)
+        
+        if not mockProfile:
+            self.response.status = '404 Not Found'
+            return
+
+        self.response.status = mockProfile.content["response"]["status"]
+        for key, value in mockProfile.content["headers"].iteritems():
+            self.response.headers.add(str(key.replace("_", "-")), str(value))
+        
+        logging.info(self.response.headers)
+        self.response.write(mockProfile.content["response"]["body"])
+        
+
+    def isInMatchWithMock(self, mockProfile, mockPath):
+        c = mockProfile.content
+        if not c["path"] == mockPath: return False
+        if not c["verb"] == self.request.method: return False
+        return True
