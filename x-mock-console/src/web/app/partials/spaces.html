@@ -20,7 +20,7 @@
 				</thead>
 				<tbody>
 					<tr data-ng-repeat="spaceProfile in spaceProfiles">
-						<td><a style="cursor: pointer" data-ng-click="open(spaceProfile)">{{ spaceProfile.displayName }}</a></td>
+						<td><a style="cursor: pointer" data-ng-click="openSpace(spaceProfile)">{{ spaceProfile.displayName }}</a></td>
 						<td>{{ spaceProfile.owner }}</td>
 						<td>{{ spaceProfile["lastModified"] }}</td>
 					</tr>

@@ -1,12 +1,12 @@
 define([], function() {
-        return ['$scope', '$http', '$log', 'MockApi', function($scope, $http, $log, MockApi) {
-
+        return ['$scope', '$routeParams', '$http', '$log', 'MockApi', function($scope, $routeParams, $http, $log, MockApi) {
+        	$scope.spaceName = $routeParams.spaceName;
             $scope.apiMocks = [];
 
             $scope.loadMockList = function() {
-                MockApi.list().$promise.then(function(mockProfiles) {
-                        $scope.apiMocks = mockProfiles;
-                    });
+                MockApi.list({"spaceName" : $scope.spaceName}).$promise.then(function(mockProfiles) {
+                	$scope.apiMocks = mockProfiles;
+                });
             };
 
 
@@ -27,7 +27,7 @@ define([], function() {
 
             $scope.save = function() {
                 $log.info($scope.mock);
-                MockApi.save($scope.mock, function(){
+                MockApi.save({"spaceName" : $scope.spaceName}, $scope.mock, function(){
                 	var refresh = function() {
                 		$scope.loadMockList();
                 		var loaded = $scope.apiMocks.some(function(mock){

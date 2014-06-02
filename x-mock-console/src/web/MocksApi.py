@@ -18,11 +18,11 @@ class MockProfile(ndb.Model):
         return cls.query(ancestor=key).order(-cls.date)
 
 class MocksApi(webapp2.RequestHandler):
-    def post(self):
+    def post(self, spaceName):
         logging.debug(self.request.body)
         profile = json.decode(self.request.body)
 
-        parentKey = ndb.Key("spaces", "ocm")
+        parentKey = ndb.Key("spaces", spaceName)
         profileKey = ndb.Key("MockProfile", profile["displayName"], parent=parentKey)
 
         mockData = MockProfile(key = profileKey)
@@ -30,12 +30,12 @@ class MocksApi(webapp2.RequestHandler):
         newKey = mockData.put()
         logging.info("Model Key=%s" % newKey)
 
-    def delete(self):
+    def delete(self, spaceName):
         ndb.delete_multi([x.key for x in MockProfile.query()])
 
-    def get(self):
+    def get(self, spaceName):
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.encode([self.wrapResponse(x) for x in MockProfile.query_by_space("ocm")]))
+        self.response.out.write(json.encode([self.wrapResponse(x) for x in MockProfile.query_by_space(spaceName)]))
 
     @classmethod
     def wrapResponse(self, profile):

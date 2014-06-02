@@ -7,7 +7,7 @@ define(['angular', 'app'], function(angular, app) {
 			templateUrl: 'app/partials/spaces.html',
 			controller: 'SpacesController'
 		})
-		.when('/mocks', {
+		.when('/spaces/:spaceName', {
 			templateUrl: 'app/partials/mocks.html',
 			controller: 'MocksController'
 		})

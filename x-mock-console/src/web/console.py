@@ -8,18 +8,12 @@ import os
 
 import webapp2
 from webapp2_extras import routes
-import jinja2
+from google.appengine.ext.webapp import template
 
 from SpacesApi import SpacesApi
 
 from MocksApi import MocksApi
 from MockRuntime import MockRuntimeHandler
-
-
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -29,14 +23,14 @@ class MainPage(webapp2.RequestHandler):
         template_values = {
         }
 
-        template = JINJA_ENVIRONMENT.get_template('index.html')
-        self.response.write(template.render(template_values))
+        path = os.path.join(os.path.dirname(__file__), 'index.html')
+        self.response.out.write(template.render(path, template_values))
 
 application = webapp2.WSGIApplication([
     routes.DomainRoute('<subdomain>.eco-muse-597.appspot.com', [
         webapp2.Route('/<mockPath:.*>', handler=MockRuntimeHandler, handler_method="processRequest", name='subdomain-home'),
     ]),
     webapp2.Route('/', handler=MainPage, name='home'),
-    webapp2.Route('/api/mocks', handler=MocksApi, name='api'),
+    webapp2.Route('/api/spaces/<spaceName>', handler=MocksApi, name='api'),
     webapp2.Route('/api/spaces', handler=SpacesApi, name='api'),
 ], debug=True)

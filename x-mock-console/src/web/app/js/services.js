@@ -7,7 +7,7 @@ define([ 'angular', 'angularResource' ], function(angular) {
 	// In this case it is a simple value service.
 	angular.module('myApp.services', [ 'ngResource' ])
 		   .factory('MockApi', [ '$resource', function($resource) {
-				return $resource('api/mocks', {}, {
+				return $resource('api/spaces/:spaceName', {spaceName:'@spaceName'}, {
 					'save' : {
 						method : 'POST'
 					},

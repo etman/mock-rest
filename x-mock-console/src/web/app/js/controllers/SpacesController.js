@@ -1,5 +1,5 @@
 define([], function() {
-        return ['$scope', '$http', '$log', 'SpaceApi', function($scope, $http, $log, SpaceApi) {
+        return ['$scope', '$http', '$log', '$location', 'SpaceApi', function($scope, $http, $log, $location, SpaceApi) {
 
             $scope.spaceProfiles = [];
 
@@ -9,15 +9,14 @@ define([], function() {
                 });
             };
 
-
             $scope.spaceProfileForm = {};
             
             $scope.cancel = function() {
             	$scope.spaceProfileForm = {};
             }
 
-            $scope.open = function(spaceProfile) {
-                angular.copy(spaceProfile, $scope.spaceProfileForm);
+            $scope.openSpace = function(spaceProfile) {
+            	$location.path('/spaces/' + spaceProfile.displayName);
             };
 
             $scope.save = function() {
