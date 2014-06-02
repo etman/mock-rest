@@ -3,6 +3,10 @@ define(['angular', 'app'], function(angular, app) {
 
 	return app.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
+		.when('/spaces', {
+			templateUrl: 'app/partials/spaces.html',
+			controller: 'SpacesController'
+		})
 		.when('/mocks', {
 			templateUrl: 'app/partials/mocks.html',
 			controller: 'MocksController'
@@ -10,7 +14,7 @@ define(['angular', 'app'], function(angular, app) {
 		.when("/about", {
 			templateUrl: 'app/partials/about.html'
 		});
-		$routeProvider.otherwise({redirectTo: '/mocks'});
+		$routeProvider.otherwise({redirectTo: '/spaces'});
 	}]);
 
 });

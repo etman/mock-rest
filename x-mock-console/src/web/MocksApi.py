@@ -35,7 +35,7 @@ class MocksApi(webapp2.RequestHandler):
 
     def get(self):
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.encode([self.wrapResponse(x) for x in MockProfile.all()]))
+        self.response.out.write(json.encode([self.wrapResponse(x) for x in MockProfile.query_by_space("ocm")]))
 
     @classmethod
     def wrapResponse(self, profile):
