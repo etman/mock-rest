@@ -20,7 +20,14 @@ class MockRuntimeHandler(webapp2.RequestHandler):
 
         self.response.status = mockProfile.content["response"]["status"]
         for key, value in mockProfile.content["headers"].iteritems():
-            self.response.headers.add(str(key.replace("_", "-")), str(value))
+            headerName = str(key.replace("_", "-"))
+            headerValue = str(value)
+            if headerName.lower() == "content-type":
+                self.response.content_type = headerValue
+            elif headerName.lower() == "content-encoding":
+                self.response.charset = headerValue
+            else:
+                self.response.headers.add(headerName, headerValue)
         
         logging.info(self.response.headers)
         self.response.write(mockProfile.content["response"]["body"])

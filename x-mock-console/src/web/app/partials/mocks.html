@@ -131,13 +131,20 @@
 					</select>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="inputHttpResponseContentEncoding" class="control-label">Content-Encoding</label>
-				<div>
-					<input type="text" class="form-control" id="inputHttpResponseContentEncoding"
-						 data-ng-model="mock.headers.Content_Encoding" value="UTF-8" placeholder="UTF-8">
-				</div>
-			</div>
+            <div class="form-group">
+                <label for="inputHttpResponseContentType" class="control-label">Content-Type</label>
+                <div>
+                    <input type="text" class="form-control" id="inputHttpResponseContentType"
+                         data-ng-model="mock.headers.Content_Type" value="UTF-8" placeholder="application/json">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputHttpResponseContentEncoding" class="control-label">Content-Encoding</label>
+                <div>
+                    <input type="text" class="form-control" id="inputHttpResponseContentEncoding"
+                         data-ng-model="mock.headers.Content_Encoding" placeholder="utf-8">
+                </div>
+            </div>
 			<div class="form-group">
 				<label for="inputHttpResponseBody" class="control-label">Response body</label>
 				<div>

@@ -13,6 +13,7 @@ define([], function() {
             $scope.mock = {
                 verb: "GET",
                 headers: {
+                	Content_Type: "application/json"
                 },
                 response: {
                     status: "200",
