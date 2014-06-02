@@ -9,6 +9,9 @@ import os
 import webapp2
 from webapp2_extras import routes
 import jinja2
+
+from SpacesApi import SpacesApi
+
 from MocksApi import MocksApi
 from MockRuntime import MockRuntimeHandler
 
@@ -35,4 +38,5 @@ application = webapp2.WSGIApplication([
     ]),
     webapp2.Route('/', handler=MainPage, name='home'),
     webapp2.Route('/api/mocks', handler=MocksApi, name='api'),
+    webapp2.Route('/api/spaces', handler=SpacesApi, name='api'),
 ], debug=True)

@@ -5,7 +5,8 @@
 				<h3 class="panel-title">Spaces</h3>
 			</div>
 			<div class="panel-body">
-			Select a space ...
+				Select a space or create a new one...
+				<button type="button" class="btn btn-primary pull-right">Create Space</button>
 			</div>
 
 			<table class="table">
@@ -17,10 +18,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><a href="">OCM</a></td>
-						<td>Tim Chang</td>
-						<td>2014/06/02</td>
+					<tr data-ng-repeat="spaceProfile in spaceProfiles">
+						<td><a style="cursor: pointer" data-ng-click="open(spaceProfile)">{{ spaceProfile.displayName }}</a></td>
+						<td>{{ spaceProfile.owner }}</td>
+						<td>{{ spaceProfile.lastModified }}</td>
 					</tr>
 				</tbody>
 			</table>

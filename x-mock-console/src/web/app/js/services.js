@@ -5,8 +5,8 @@ define([ 'angular', 'angularResource' ], function(angular) {
 
 	// Demonstrate how to register services
 	// In this case it is a simple value service.
-	angular.module('myApp.services', [ 'ngResource' ]).factory('MockApi',
-			[ '$resource', function($resource) {
+	angular.module('myApp.services', [ 'ngResource' ])
+		   .factory('MockApi', [ '$resource', function($resource) {
 				return $resource('api/mocks', {}, {
 					'save' : {
 						method : 'POST'
@@ -16,5 +16,17 @@ define([ 'angular', 'angularResource' ], function(angular) {
 						isArray : true
 					}
 				});
-			} ]).value('version', '0.1');
+			} ])
+			.factory('SpaceApi', [ '$resource', function($resource) {
+				return $resource('api/spaces', {}, {
+					'save' : {
+						method : 'POST'
+					},
+					'list' : {
+						method : 'GET',
+						isArray : true
+					}
+				});
+			} ])
+			.value('version', '0.1');
 });
