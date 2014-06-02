@@ -6,13 +6,15 @@ define([], function() {
             $scope.loadSpaceList = function() {
                 SpaceApi.list().$promise.then(function(spaceProfiles) {
                         $scope.spaceProfiles = spaceProfiles;
-                    });
+                });
             };
 
 
-            $scope.spaceProfileForm = {
-                
-            };
+            $scope.spaceProfileForm = {};
+            
+            $scope.cancel = function() {
+            	$scope.spaceProfileForm = {};
+            }
 
             $scope.open = function(spaceProfile) {
                 angular.copy(spaceProfile, $scope.spaceProfileForm);
@@ -21,6 +23,8 @@ define([], function() {
             $scope.save = function() {
                 $log.info($scope.spaceProfileForm);
                 SpaceApi.save($scope.spaceProfileForm, function(){
+                	$('#newSpaceModal').modal('hide');
+                	$scope.spaceProfileForm = {};
                 	var refresh = function() {
                 		$scope.loadSpaceList();
                 		var loaded = $scope.spaceProfiles.some(function(profile){

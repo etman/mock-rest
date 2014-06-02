@@ -39,5 +39,5 @@ class MocksApi(webapp2.RequestHandler):
 
     @classmethod
     def wrapResponse(self, profile):
-        profile.content["last-modified"] = profile.date.strftime('%s')
+        profile.content["lastModified"] = profile.date.strftime('%s')
         return profile.content
