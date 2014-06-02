@@ -23,8 +23,9 @@ class MocksApi(webapp2.RequestHandler):
         profile = json.decode(self.request.body)
 
         parentKey = ndb.Key("spaces", "ocm")
+        profileKey = ndb.Key("MockProfile", profile["displayName"], parent=parentKey)
 
-        mockData = MockProfile.get_by_id(profile["id"], parentKey) if "id" in profile else MockProfile(parent=parentKey)
+        mockData = MockProfile(key = profileKey)
         mockData.content = profile
         newKey = mockData.put()
         logging.info("Model Key=%s" % newKey)
@@ -38,6 +39,5 @@ class MocksApi(webapp2.RequestHandler):
 
     @classmethod
     def wrapResponse(self, profile):
-        profile.content["id"] = profile.key.id()
         profile.content["last-modified"] = profile.date.strftime('%s')
         return profile.content

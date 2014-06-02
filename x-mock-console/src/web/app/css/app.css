@@ -1,5 +1,13 @@
 /* app css stylesheet */
 
+[data-ng-cloak] {
+    display: none;
+}
+
+input.field-validation-error {
+    background-color: #F7CCB7 !important;
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;

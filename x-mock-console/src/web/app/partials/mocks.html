@@ -10,18 +10,19 @@
 		</div>
 	</div>
 	<div class="col-md-8">
-		<form role="form" data-ng-enter="save()">
+		<form role="form" name="mockProfileForm" data-ng-submit="save()">
 			<div class="form-group">
 				<label for="inputDisplayName">Display Name</label>
-				<input type="text" id="inputDisplayName" class="form-control" placeholder="name"
-				    data-ng-model="mock.displayName" data-ng-required="true" data-set-focus>
+				<input type="text" id="inputDisplayName" name="inputDisplayName" class="form-control" placeholder="name"
+				    data-ng-model="mock.displayName" data-ng-required="true" data-set-focus
+				    data-ng-class="{'field-validation-error': mockProfileForm.inputDisplayName.$invalid && mockProfileForm.inputDisplayName.$dirty}">
 			</div>
 			<div class="form-group">
 				<label for="inputPath">Path</label>
 				<div class="input-group">
-					<span class="input-group-addon">http://eco-muse-597.appspot.com/</span>
+					<span class="input-group-addon">http://ocm.eco-muse-597.appspot.com/</span>
 					<input type="text" class="form-control" id="inputPath"
-					data-ng-model="mock.path" data-ng-required="true">
+					data-ng-model="mock.path">
 				</div>
 			</div>
 			<div class="form-group">
@@ -143,7 +144,7 @@
 					<textarea class="form-control" rows="10" id="inputHttpResponseBody" data-ng-model="mock.response.body"></textarea>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-default" data-ng-click="save()">Save</button>
+			<button type="submit" class="btn btn-primary" data-ng-disabled="mockProfileForm.$invalid">Save</button>
 		</form>
 	</div>
 </div>
