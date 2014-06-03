@@ -27,7 +27,7 @@ class MainPage(webapp2.RequestHandler):
         self.response.out.write(template.render(path, template_values))
 
 application = webapp2.WSGIApplication([
-    routes.DomainRoute('<subdomain>.eco-muse-597.appspot.com', [
+    routes.DomainRoute('<subdomain>.mock-rest.appspot.com', [
         webapp2.Route('/<mockPath:.*>', handler=MockRuntimeHandler, handler_method="processRequest", name='subdomain-home'),
     ]),
     webapp2.Route('/', handler=MainPage, name='home'),

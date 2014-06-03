@@ -23,11 +23,12 @@ define([], function() {
                 $log.info($scope.spaceProfileForm);
                 SpaceApi.save($scope.spaceProfileForm, function(){
                 	$('#newSpaceModal').modal('hide');
+                	var newName = $scope.spaceProfileForm.displayName;
                 	$scope.spaceProfileForm = {};
                 	var refresh = function() {
                 		$scope.loadSpaceList();
                 		var loaded = $scope.spaceProfiles.some(function(profile){
-                			return ($scope.spaceProfileForm.displayName == profile.displayName);
+                			return (newName == profile.displayName);
                 		});
                 		if (!loaded) setTimeout(refresh, 1000);
                 	};
