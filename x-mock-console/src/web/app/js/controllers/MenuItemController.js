@@ -1,11 +1,21 @@
 define([], function() {
 	return [ '$scope', '$http', '$log', '$location', 'SpaceApi', function($scope, $http, $log, $location, SpaceApi) {
-		$scope.spaces = [{}];
+
+        $scope.spaceDropDown = [];
+        
         $scope.loadSpaceList = function() {
             SpaceApi.list().$promise.then(function(spaceProfiles) {
-                $scope.spaces = spaceProfiles;
+            	var dropDownList = $.map(spaceProfiles, function(profile) {
+            	       return {
+            	    	   "text": profile.displayName,
+            	    	   "href": "#/spaces/" + profile.displayName
+            	       };
+            	});
+                $scope.spaceDropDown = dropDownList;
+                $log.info(spaceProfiles);
             });
         };
+        
         
         $scope.open = function(profile) {
 			$log.info(profile);
