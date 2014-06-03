@@ -8,32 +8,40 @@ define([], function() {
                         $scope.spaceProfiles = spaceProfiles;
                 });
             };
-
-            $scope.spaceProfileForm = {};
             
-            $scope.cancel = function() {
-            	$scope.spaceProfileForm = {};
-            }
+            $scope.modal = {
+            	spaceProfileForm : {},
+            	reset : function() {
+                	this.spaceProfileForm = {};
+            	},
+            	cancel : function() {
+                	this.$hide();
+                	this.reset();
+                },
+                save : function() {
+                    var newSpaceForm = this.spaceProfileForm;
+                	var thisModal = this;
+                    $log.info(newSpaceForm);
+                    SpaceApi.save(newSpaceForm, function(){
+                    	var newName = newSpaceForm.displayName;
+                    	var refresh = function() {
+                    		$scope.loadSpaceList();
+                    		var loaded = $scope.spaceProfiles.some(function(profile){
+                    			return (newName == profile.displayName);
+                    		});
+                    		if (!loaded) setTimeout(refresh, 1000);
+                    		else {
+                            	thisModal.$hide();
+                            	thisModal.reset();
+                    		}
+                    	};
+                    	setTimeout(refresh, 200);
+                    });
+                }
+            };
 
             $scope.openSpace = function(spaceProfile) {
             	$location.path('/spaces/' + spaceProfile.displayName);
-            };
-
-            $scope.save = function() {
-                $log.info($scope.spaceProfileForm);
-                SpaceApi.save($scope.spaceProfileForm, function(){
-                	$('#newSpaceModal').modal('hide');
-                	var newName = $scope.spaceProfileForm.displayName;
-                	$scope.spaceProfileForm = {};
-                	var refresh = function() {
-                		$scope.loadSpaceList();
-                		var loaded = $scope.spaceProfiles.some(function(profile){
-                			return (newName == profile.displayName);
-                		});
-                		if (!loaded) setTimeout(refresh, 1000);
-                	};
-                	setTimeout(refresh, 200);
-                });
             };
 
             $scope.loadSpaceList();
