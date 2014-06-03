@@ -9,9 +9,9 @@ import os
 import webapp2
 from webapp2_extras import routes
 from google.appengine.ext.webapp import template
+import logging
 
 from SpacesApi import SpacesApi
-
 from MocksApi import MocksApi
 from MockRuntime import MockRuntimeHandler
 
@@ -24,6 +24,7 @@ class MainPage(webapp2.RequestHandler):
         }
 
         path = os.path.join(os.path.dirname(__file__), 'index.html')
+        logging.info(path)
         self.response.out.write(template.render(path, template_values))
 
 application = webapp2.WSGIApplication([
